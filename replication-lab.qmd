@@ -230,12 +230,17 @@ The verdict is designated **Partially Reproduced** because this proxy experiment
 
  Dohare, S., Hernandez-Garcia, J. F., Rahman, P., Silver, R., Badilla, W. R., & Sutton, R. S. (2024). Loss of plasticity in deep continual learning. *Nature*, 632(8026), 768–774. https://doi.org/10.1038/s41586-024-07711-7
  
+ 
  Klein, T., Luther, C., McAuliffe, M., Miklautz, L., Plant, C., & Tschiatschek, S. (2024). Plasticity loss in deep reinforcement learning: A survey. arXiv. https://arxiv.org/abs/2411.04832
+ 
  
  Kumar, S., Marklund, H. &amp; Roy, B.V.. (2025). Maintaining Plasticity in Continual Learning via Regenerative Regularization. <i>Proceedings of The 3rd Conference on Lifelong Learning Agents</i>, in <i>Proceedings of Machine Learning Research</i> 274:410-430 Available from https://proceedings.mlr.press/v274/kumar25a.html.
  
+ 
  Lyle, C., Zheng, Z., Nikishin, E., Pires, B. A., Pascanu, R., & Dabney, W. (2023). Understanding plasticity in neural networks. *Proceedings of the 40th International Conference on Machine Learning*, PMLR 202, 23150–23165.
  
+ 
  Maas, A. L., Hannun, A. Y., & Ng, A. Y. (2013). Rectifier nonlinearities improve neural network acoustic models. *Proceedings of the 30th International Conference on Machine Learning*, 30(1), 3.
+ 
  
  Mermillod, M., Bugaiska, A., & Bonin, P. (2013). The stability-plasticity dilemma: Investigating the continuum from catastrophic forgetting to age-limited learning effects. *Frontiers in Psychology*, 4, 504. https://doi.org/10.3389/fpsyg.2013.00504
