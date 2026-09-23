@@ -15,7 +15,7 @@ execute:
 
 # Introduction and Context
 
-In continual and nonstationary machine learning, a fundamental challenge is maintaining the ability to acquire new knowledge over time. While catastrophic forgetting addresses the loss of past representations, recent literature—notably synthesized in the survey by Klein et al.—highlights an equally critical phenomenon: **loss of plasticity**. Under continual distribution shifts or sequential task regimes, a network may retain strong performance on earlier tasks or features, yet experience a degraded capacity to adapt, recover, or learn subsequent tasks as efficiently as a freshly initialized baseline.
+In continual and nonstationary machine learning, a fundamental challenge is maintaining the ability to acquire new knowledge over time. While catastrophic forgetting addresses the loss of past representations, recent literature—notably synthesized in the survey by Klein et al. (2024)—highlights an equally critical phenomenon: **loss of plasticity**. Under continual distribution shifts or sequential task regimes, a network may retain strong performance on earlier tasks or features, yet experience a degraded capacity to adapt, recover, or learn subsequent tasks as efficiently as a freshly initialized baseline (Klein et al., 2024).
 
 This laboratory conducts a proxy replication evaluating how model adaptation and learning trajectories evolve when training dynamics undergo nonstationary shifts.
 
@@ -24,8 +24,8 @@ This laboratory conducts a proxy replication evaluating how model adaptation and
 # Claim (What Idea Are We Testing?)
 
 ### Hypothesis and Phenomenon
-* **Primary Claim:** When a deep learning model experiences nonstationary task or distribution transitions, its ongoing adaptation capacity deteriorates. Specifically, continued gradient updates on earlier distributions cause weight consolidation, feature collapse, or dead activation regimes that slow down or cap the asymptotic learning efficiency on subsequent tasks relative to a newly initialized model.
-* **Operational Definition:** Plasticity loss is not simply the immediate drop in performance following an environmental shock ($t_{\text{shift}}$); rather, it is quantified by the subsequent **rate of recovery**, the **asymptotic learning ceiling**, and the **sample complexity** required to attain target accuracy on the new task compared to an identical architecture trained from scratch.
+* **Primary Claim:** When a deep learning model experiences nonstationary task or distribution transitions, its ongoing adaptation capacity deteriorates (Klein et al., 2024). Specifically, continued gradient updates on earlier distributions cause weight consolidation, feature collapse, or dead activation regimes that slow down or cap the asymptotic learning efficiency on subsequent tasks relative to a newly initialized model.
+* **Operational Definition:** Plasticity loss is not simply the immediate drop in performance following an environmental shock ($t_{\text{shift}}$); rather, it is quantified by the subsequent **rate of recovery**, the **asymptotic learning ceiling**, and the **sample complexity** required to attain target accuracy on the new task compared to an identical architecture trained from scratch (Klein et al., 2024).
 
 ---
 
@@ -85,7 +85,7 @@ $$\text{Rate}_{\text{Continuous}} \approx 0.53 \times \text{Rate}_{\text{Scratch
 The model exhibited optimization sluggishness, struggling to escape parameter basins consolidated during Phase 1.
 
 ### 5. TRADEOFF (Stability vs. Plasticity Balance)
-The empirical evidence indicates that parameter retention came directly at the expense of adaptive plasticity. The consolidation of representations in early layers constrained subsequent gradient descent paths, causing persistent plasticity loss.
+The empirical evidence indicates that parameter retention came directly at the expense of adaptive plasticity. The consolidation of representations in early layers constrained subsequent gradient descent paths, causing persistent plasticity loss (Klein et al., 2024).
 
 ---
 
@@ -94,7 +94,7 @@ The empirical evidence indicates that parameter retention came directly at the e
 The diagnostic indicates genuine **loss of plasticity**:
 * The observed deficit cannot be attributed to the instantaneous shock drop at $t_{\text{shift}}$, but rather to the **depressed recovery rate** and **sub-optimal asymptotic plateau**.
 * The continuous learner required double the sample complexity of the freshly initialized network, yet still failed to close the performance gap.
-* This pattern confirms that naive gradient descent in deep architectures under sequential shifts induces implicit regularization or dead units (loss of effective rank in representation space), restricting ongoing adaptability.
+* This pattern confirms that naive gradient descent in deep architectures under sequential shifts induces implicit regularization or dead units (loss of effective rank in representation space), restricting ongoing adaptability (Klein et al., 2024).
 
 ---
 
@@ -103,7 +103,7 @@ The diagnostic indicates genuine **loss of plasticity**:
 To validate and build upon this proxy replication, the following experimental extensions are recommended:
 
 1. **Weight & Activation Reset Interventions:**
-   * Evaluate *Selective Plasticity Injection* (e.g., continual backpropagation, dead neuron re-initialization, or Shrink and Perturb mechanisms) to verify whether resetting inactive units restores the post-shift learning slope to match the scratch baseline.
+   * Evaluate *Selective Plasticity Injection* (e.g., continual backpropagation, dead neuron re-initialization, or Shrink and Perturb mechanisms) to verify whether resetting inactive units restores the post-shift learning slope to match the scratch baseline (Klein et al., 2024).
 2. **Representation Rank Tracking:**
    * Compute the stable rank of post-activation feature representations across layers over time to measure whether feature collapse correlates directly with the drop in learning rate.
 3. **Gradual vs. Abrupt Nonstationarity:**
@@ -117,4 +117,10 @@ To validate and build upon this proxy replication, the following experimental ex
 
 ### Justification
 * **Supported:** The core empirical claim from Week 4 literature—that continuous adaptation under nonstationary conditions degrades the rate and ultimate ceiling of subsequent learning relative to fresh models—is confirmed by the observed trajectory gap and rate disparity.
-* **Limitations of Scope:** Because this implementation serves as a proxy replication using a scaled feedforward setup rather than the full suite of extensive reinforcement learning and continuous vision benchmarks evaluated in Klein et al., the verdict is scoped as *Partially Reproduced*. The primary mechanism is supported within the boundaries of the tested proxy environment.
+* **Limitations of Scope:** Because this implementation serves as a proxy replication using a scaled feedforward setup rather than the full suite of extensive reinforcement learning and continuous vision benchmarks evaluated in Klein et al. (2024), the verdict is scoped as *Partially Reproduced*. The primary mechanism is supported within the boundaries of the tested proxy environment.
+
+---
+
+# References
+
+Klein, T., Luther, C., McAuliffe, M., Miklautz, L., Plant, C., & Tschiatschek, S. (2024). *Plasticity loss in deep reinforcement learning: A survey*. arXiv. https://arxiv.org/abs/2411.04832
