@@ -19,7 +19,7 @@ This laboratory investigates the stability–plasticity dilemma and the phenomen
 
 Using a reproducible proxy experiment comparing a continuously trained multi-layer perceptron (Continual Agent) against re-initialized baselines (Scratch Agents) across sequential regression distributions, we apply the five-stage **Stability–Plasticity Diagnostic** ($\text{CHANGE} \rightarrow \text{RETENTION} \rightarrow \text{NEW LEARNING} \rightarrow \text{RATE} \rightarrow \text{TRADEOFF}$). Our empirical observations reveal that prior optimization leads to a persistent degradation in initial adaptation velocity and a higher terminal error plateau. Based on the scope of the proxy implementation, we conclude with a replication verdict of **Partially Reproduced**.
 
-
+---
 
 # Claim: Plasticity Loss Under Nonstationary Streams
 
@@ -29,16 +29,16 @@ Standard deep learning frameworks operate under the assumption that overparamete
 2. **Feature Rank Collapse:** Continual gradient updates compress latent representation spaces, systematically depleting the stable rank of hidden feature covariance matrices and eroding expressive capacity (Kumar et al., 2020; Lyle et al., 2023).
 3. **Core Laboratory Claim:** *An artificial neural network continuously trained on a sequence of nonstationary tasks will exhibit slower convergence rates and worse asymptotic error on task $T_k$ compared to an architecturally identical baseline initialized from scratch on $T_k$.*
 
-
+---
 
 # Replicate: Experimental Protocol & Executable Code
 
 The replication protocol uses a synthetic multi-task regression environment featuring three nonstationary task distributions ($T_1 \rightarrow T_2 \rightarrow T_3$). For each task shift, the underlying mapping undergoes an orthogonal weight transformation with additive Gaussian noise.
 
 Two experimental agents are evaluated:
- **Continual Agent:** Trains sequentially through $T_1$, $T_2$, and $T_3$ without parameter re-initialization.
- **Scratch Agent:** Re-initialized independently at the onset of each task distribution, establishing the empirical upper bound of unconstrained plasticity.
----
+* **Continual Agent:** Trains sequentially through $T_1$, $T_2$, and $T_3$ without parameter re-initialization.
+* **Scratch Agent:** Re-initialized independently at the onset of each task distribution, establishing the empirical upper bound of unconstrained plasticity.
+
 ```python
 # ==============================================================================
 # ANLY 735 | Replication Laboratory #2: Colab / Quarto Reproducible Pipeline
@@ -138,13 +138,13 @@ for t in range(1, NUM_TASKS + 1):
     loss_scratch = train_task(scratch_model, scratch_optimizer, criterion, Xt, yt, epochs=EPOCHS)
     scratch_trajectories[f"Task_{t}"] = loss_scratch
 ```
----
 
+---
 
 # Compare: Learning Trajectories Under Changing Conditions
 
 We analyze model adaptation across conditions by inspecting trajectory shapes, recovery rates, and terminal loss values.
----
+
 ```python
 # 5. Trajectory Visualization
 fig, axes = plt.subplots(1, 3, figsize=(15, 4.2), sharey=True)
@@ -167,7 +167,6 @@ plt.suptitle("Comparative Learning Curves: Plasticity Preservation vs. Sequentia
 plt.tight_layout()
 plt.show()
 ```
----
 
 ### Empirical Comparison Matrix
 
@@ -180,7 +179,7 @@ plt.show()
 | **Recovery Epochs ($\text{MSE} \le 0.10$)** | 18 | 39 | 68 |
 | **Scratch Recovery Baseline ($\text{MSE} \le 0.10$)** | 18 | 19 | 19 |
 
-
+---
 
 # Diagnose: Stability–Plasticity Diagnostic
 
@@ -207,7 +206,7 @@ $$\text{CHANGE} \longrightarrow \text{RETENTION} \longrightarrow \text{NEW LEARN
 ### 5. TRADEOFF (Stability vs. Plasticity Balance)
 * **Synthesis:** Standard gradient descent with weight decay fails to maintain equilibrium. The model neither retains past solutions (high forgetting) nor maintains adaptation speed (depleted plasticity), demonstrating the vulnerability highlighted by Mermillod et al. (2013).
 
-
+---
 
 # Extend: Recommended Next Experiments
 
@@ -216,7 +215,7 @@ To further investigate and mitigate this behavior, two experimental extensions a
 1. **Continual Backpropagation (CBP):** Implement periodic selective re-initialization of dormant or low-utility hidden units based on gradient and activation magnitude (Dohare et al., 2024). This provides an ongoing influx of plastic parameters without resetting the entire network.
 2. **Shrink and Perturb Regularization:** Introduce cyclic parameter shrinkage combined with isotropic Gaussian noise injection ($\mathbf{w} \leftarrow (1-\alpha)\mathbf{w} + \sigma \boldsymbol{\epsilon}$) during task transitions to test whether regularizing parameter norm growth preserves feature rank (Lyle et al., 2023).
 
-
+---
 
 # Replication Verdict
 
@@ -226,8 +225,6 @@ To further investigate and mitigate this behavior, two experimental extensions a
 The empirical results **reproduce** the behavioral phenomenon: sequential training under nonstationary shifts leads to a progressive decline in convergence velocity ($\text{RATE}$) and terminal adaptation quality ($\text{NEW LEARNING}$) relative to freshly initialized models.
 
 The verdict is designated **Partially Reproduced** because this proxy experiment utilizes a shallow synthetic regression task. While it isolates the operational mechanics of plasticity loss, it does not evaluate representation rank collapse, dormant neuron counts, or high-dimensional catastrophic forgetting at the scale demonstrated across deep reinforcement learning benchmarks (Dohare et al., 2024; Klein et al., 2024).
-
-
 
 # References
 
